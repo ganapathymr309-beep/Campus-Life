@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administrator dashboard | CampusCare</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="admin.html"><span class="brand-mark">C</span><span>CampusCare</span></a>
+    <nav class="topbar-actions"><span class="role-pill">Administrator</span><button class="button button-quiet" data-logout type="button">Log out</button></nav>
+  </header>
+  <main class="page-shell">
+    <div class="page-heading">
+      <div><p class="eyebrow eyebrow-blue">ADMINISTRATOR CONSOLE</p><h1>Student overview</h1><p class="muted">Manage student records, track progress, and keep families in the loop.</p></div>
+      <button class="button button-primary" id="add-student-shortcut" type="button">+ Add student</button>
+    </div>
+    <section class="summary-grid" id="dashboard-stats" aria-label="Dashboard statistics"></section>
+    <p id="admin-message" class="form-message" role="status" aria-live="polite"></p>
+
+    <section class="content-card" id="student-editor">
+      <div class="section-heading">
+        <div><p class="eyebrow eyebrow-blue">STUDENT DIRECTORY</p><h2 id="form-title">Add a student</h2></div>
+        <span class="muted">Fields marked * are required</span>
+      </div>
+      <form id="student-form" novalidate>
+        <input type="hidden" name="id">
+        <div class="form-grid">
+          <label>Student name *<input name="name" autocomplete="name" required></label>
+          <label>USN / register number *<input name="usn" required></label>
+          <label>Student email *<input name="email" type="email" autocomplete="email" required></label>
+          <label>Student phone<input name="phone" type="tel"></label>
+          <label>Father's name<input name="fatherName"></label>
+          <label>Father's phone<input name="fatherPhone" type="tel"></label>
+          <label>Mother's name<input name="motherName"></label>
+          <label>Mother's phone<input name="motherPhone" type="tel"></label>
+          <label>Parent account email *<input name="parentEmail" type="email" required></label>
+        </div>
+        <fieldset class="marks-fieldset">
+          <legend>Academic information</legend>
+          <div class="form-grid form-grid-three">
+            <label>Subject 1 marks<input name="mark1" type="number" min="0" max="100" step="1" required></label>
+            <label>Subject 2 marks<input name="mark2" type="number" min="0" max="100" step="1" required></label>
+            <label>Subject 3 marks<input name="mark3" type="number" min="0" max="100" step="1" required></label>
+            <label>Subject 4 marks<input name="mark4" type="number" min="0" max="100" step="1" required></label>
+            <label>Subject 5 marks<input name="mark5" type="number" min="0" max="100" step="1" required></label>
+            <label>Attendance (%)<input name="attendance" type="number" min="0" max="100" step="0.1" required></label>
+            <label>Behavior<input name="behavior" required></label>
+            <label>Academic performance<input name="performance" required></label>
+          </div>
+        </fieldset>
+        <div class="form-actions"><button class="button button-primary" id="save-student" type="submit">Add student</button><button class="button button-outline" id="cancel-edit" type="button" hidden>Cancel edit</button></div>
+      </form>
+    </section>
+
+    <section class="content-card">
+      <div class="section-heading">
+        <div><p class="eyebrow eyebrow-blue">RECORDS</p><h2>Student directory</h2></div>
+        <label class="search-control"><span class="sr-only">Search by name or USN</span><input id="student-search" type="search" placeholder="Search name or USN"></label>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th scope="col">Student</th><th scope="col">USN</th><th scope="col">Attendance</th><th scope="col">Academic performance</th><th scope="col">Student login</th><th scope="col">Parent account</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead>
+          <tbody id="student-rows"></tbody>
+        </table>
+      </div>
+      <p class="empty-state" id="students-empty" hidden>No students match this search.</p>
+    </section>
+
+    <section class="content-card" id="parent-email-notifications">
+      <div class="section-heading">
+        <div><p class="eyebrow eyebrow-blue">EMAIL DELIVERY</p><h2>Parent Email Notifications</h2></div>
+        <span id="email-service-status" class="muted" role="status" aria-live="polite">Checking notification service…</span>
+      </div>
+      <p class="muted">Emails are evaluated after attendance or academic records are updated. A message is sent only when its classification changes. Preview and manual updates are available per student.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th scope="col">Student Name</th><th scope="col">USN</th>
+            <th scope="col">Attendance</th><th scope="col">Attendance Status</th>
+            <th scope="col">Academic Performance</th><th scope="col">Academic Status</th>
+            <th scope="col">Parent Email</th><th scope="col">Last Notification Date</th>
+            <th scope="col">Email Delivery Status</th><th scope="col">Actions</th>
+          </tr></thead>
+          <tbody id="parent-email-rows"></tbody>
+        </table>
+      </div>
+      <p class="empty-state" id="parent-email-empty" hidden>No student records are available.</p>
+
+      <div class="subsection-heading">
+        <div class="section-heading">
+          <h3>Notification history</h3>
+          <label class="inline-checkbox"><input id="failed-notifications-only" type="checkbox"> Show failed notifications only</label>
+        </div>
+      </div>
+      <div id="parent-email-history" class="notification-list"></div>
+    </section>
+
+    <section class="content-card">
+      <div class="section-heading">
+        <div><p class="eyebrow eyebrow-blue">FAMILY COMMUNICATION</p><h2>Send an in-app notification</h2></div>
+        <span class="muted">This message appears in the parent's CampusCare dashboard; it does not send an email.</span>
+      </div>
+      <form id="notification-form" novalidate>
+        <div class="form-grid form-grid-three">
+          <label>Student *
+            <select name="usn" id="notification-student" required><option value="">Select a student</option></select>
+          </label>
+          <label>Category *
+            <select name="category" required>
+              <option value="">Choose category</option><option>Attendance</option><option>Behavior</option><option>Marks/Academic</option><option>General</option>
+            </select>
+          </label>
+          <label>Title *<input name="title" maxlength="120" required></label>
+        </div>
+        <label class="block-label">Message *<textarea name="message" rows="3" maxlength="1000" required></textarea></label>
+        <div class="form-actions"><button class="button button-primary" type="submit">Send notification</button></div>
+      </form>
+      <div class="subsection-heading"><h3>Previously sent</h3></div>
+      <div id="notification-admin-list" class="notification-list"></div>
+    </section>
+
+    <section class="content-card">
+      <div class="section-heading">
+        <div><p class="eyebrow eyebrow-blue">DATA MANAGEMENT</p><h2>Excel import &amp; export</h2></div>
+        <span class="muted">Workbook sheets: Students · Academic · Notifications</span>
+      </div>
+      <p class="muted">Column labels are normalized (including Student Number, Student gmail, and Attendence). Imports match by USN.</p>
+      <div class="import-controls">
+        <label>Import workbook (.xlsx, .xls)<input id="workbook-file" type="file" accept=".xlsx,.xls"></label>
+        <label>Import mode
+          <select id="import-mode"><option value="merge">Merge (keep existing records)</option><option value="replace">Replace student roster</option></select>
+        </label>
+        <button id="import-workbook" class="button button-primary" type="button">Import workbook</button>
+        <button id="export-workbook" class="button button-outline" type="button">Export current data</button>
+      </div>
+      <p class="field-hint">Replace requires confirmation. Existing notifications are preserved in both modes. Install the project dependencies once to enable local Excel import and export.</p>
+      <div id="import-summary" class="import-summary" role="status" aria-live="polite"></div>
+    </section>
+  </main>
+  <dialog id="email-preview-dialog" class="email-preview-dialog">
+    <div class="section-heading">
+      <div><p class="eyebrow eyebrow-blue">EMAIL PREVIEW</p><h2>Parent email</h2></div>
+      <button id="close-email-preview" class="button button-quiet" type="button">Close</button>
+    </div>
+    <p><strong>To:</strong> <span id="email-preview-recipient"></span></p>
+    <p><strong>Subject:</strong> <span id="email-preview-subject"></span></p>
+    <pre id="email-preview-body"></pre>
+  </dialog>
+  <footer class="site-footer">CampusCare · Browser-local demonstration · Not for production use</footer>
+  <script src="data.js"></script>
+  <script src="node_modules/xlsx/dist/xlsx.full.min.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

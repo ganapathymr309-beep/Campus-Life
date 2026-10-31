@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CampusCare student monitoring portal demonstration">
+  <title>Sign in | CampusCare</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+  <main class="login-layout">
+    <section class="login-intro" aria-labelledby="brand-title">
+      <a class="brand brand-light" href="index.html" aria-label="CampusCare home">
+        <span class="brand-mark">C</span><span>CampusCare</span>
+      </a>
+      <div class="intro-copy">
+        <p class="eyebrow">STUDENT MONITORING PORTAL</p>
+        <h1 id="brand-title">A clearer view of every student's journey.</h1>
+        <p>One place for academic progress, attendance, and the conversations that help students thrive.</p>
+      </div>
+      <div class="intro-foot">A connected campus starts with care.</div>
+    </section>
+
+    <section class="login-panel" aria-labelledby="login-title">
+      <div class="login-card">
+        <p class="eyebrow eyebrow-blue">WELCOME TO CAMPUSCARE</p>
+        <h2 id="login-title">Sign in to your account</h2>
+        <p class="muted">Choose your account type to continue.</p>
+        <div class="demo-notice" role="note">
+          <strong>Demonstration only</strong>
+          <span>Student passwords are set during account activation. This demo does not provide secure authentication, and student records remain in browser storage; do not use real or sensitive information.</span>
+        </div>
+        <form id="login-form" novalidate>
+          <label for="role">Account type</label>
+          <select id="role" name="role" required>
+            <option value="">Select an account type</option>
+            <option value="admin">Administrator</option>
+            <option value="student">Student</option>
+            <option value="parent">Parent</option>
+          </select>
+
+          <label id="username-label" for="username">Username or account email</label>
+          <input id="username" name="username" autocomplete="username" required>
+
+          <label id="password-label" for="password">Demo passphrase</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+          <p id="password-hint" class="field-hint">Any non-empty value is accepted; it is not checked or stored.</p>
+
+          <p id="login-message" class="form-message" role="alert" aria-live="polite"></p>
+          <button class="button button-primary button-wide" type="submit">Continue <span aria-hidden="true">→</span></button>
+        </form>
+        <button id="show-activation" class="button button-outline button-wide" type="button" hidden>Set up student account</button>
+        <form id="student-activation-form" novalidate hidden>
+          <p class="eyebrow eyebrow-blue">STUDENT ACCOUNT SETUP</p>
+          <p class="field-hint">Use the USN and student email already on your CampusCare record, then choose a password.</p>
+          <label for="activation-usn">Student USN</label>
+          <input id="activation-usn" name="usn" autocomplete="username" required>
+          <label for="activation-email">Registered student email</label>
+          <input id="activation-email" name="email" type="email" autocomplete="email" required>
+          <label for="activation-password">Choose a password</label>
+          <input id="activation-password" name="password" type="password" autocomplete="new-password" minlength="8" required>
+          <label for="activation-confirm">Confirm password</label>
+          <input id="activation-confirm" name="confirm" type="password" autocomplete="new-password" minlength="8" required>
+          <p class="form-message" id="activation-message" role="status" aria-live="polite"></p>
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">Activate account</button>
+            <button id="cancel-activation" class="button button-quiet" type="button">Cancel</button>
+          </div>
+        </form>
+        <p id="login-help" class="login-help">Student: sign in with an activated USN and password. Existing students can set up an account using their USN and registered student email. Parent: use a registered parent name with the student's USN, or the parent account email · Admin: enter any username.</p>
+      </div>
+      <footer class="login-footer">© CampusCare · Local demonstration</footer>
+    </section>
+  </main>
+  <script src="data.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>

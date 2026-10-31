@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Family dashboard | CampusCare</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="parent.html"><span class="brand-mark">C</span><span>CampusCare</span></a>
+    <nav class="topbar-actions"><span class="role-pill">Parent portal</span><button class="button button-quiet" data-logout type="button">Log out</button></nav>
+  </header>
+  <main class="page-shell">
+    <div class="page-heading">
+      <div><p class="eyebrow eyebrow-blue">FAMILY DASHBOARD</p><h1 id="welcome">Student progress</h1><p class="muted">Stay informed about progress, attendance, and important updates.</p></div>
+      <div id="unread-badge" class="unread-badge" aria-live="polite"></div>
+    </div>
+    <div id="parent-content"></div>
+    <p id="parent-message" class="form-message" role="status" aria-live="polite"></p>
+  </main>
+  <footer class="site-footer">CampusCare · Student Monitoring Portal demonstration</footer>
+  <script src="data.js"></script>
+  <script src="parent.js"></script>
+</body>
+</html>

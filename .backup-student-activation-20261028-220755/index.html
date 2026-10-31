@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CampusCare student monitoring portal demonstration">
+  <title>Sign in | CampusCare</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-page">
+  <main class="login-layout">
+    <section class="login-intro" aria-labelledby="brand-title">
+      <a class="brand brand-light" href="index.html" aria-label="CampusCare home">
+        <span class="brand-mark">C</span><span>CampusCare</span>
+      </a>
+      <div class="intro-copy">
+        <p class="eyebrow">STUDENT MONITORING PORTAL</p>
+        <h1 id="brand-title">A clearer view of every student's journey.</h1>
+        <p>One place for academic progress, attendance, and the conversations that help students thrive.</p>
+      </div>
+      <div class="intro-foot">A connected campus starts with care.</div>
+    </section>
+
+    <section class="login-panel" aria-labelledby="login-title">
+      <div class="login-card">
+        <p class="eyebrow eyebrow-blue">WELCOME TO CAMPUSCARE</p>
+        <h2 id="login-title">Sign in to your account</h2>
+        <p class="muted">Choose your account type to continue.</p>
+        <div class="demo-notice" role="note">
+          <strong>Demonstration only</strong>
+          <span>This browser-only demo does not authenticate passwords. Do not enter real or sensitive information.</span>
+        </div>
+        <form id="login-form" novalidate>
+          <label for="role">Account type</label>
+          <select id="role" name="role" required>
+            <option value="">Select an account type</option>
+            <option value="admin">Administrator</option>
+            <option value="student">Student</option>
+            <option value="parent">Parent</option>
+          </select>
+
+          <label id="username-label" for="username">Username or account email</label>
+          <input id="username" name="username" autocomplete="username" required>
+
+          <label id="password-label" for="password">Demo passphrase</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+          <p id="password-hint" class="field-hint">Any non-empty value is accepted; it is not checked or stored.</p>
+
+          <p id="login-message" class="form-message" role="alert" aria-live="polite"></p>
+          <button class="button button-primary button-wide" type="submit">Continue <span aria-hidden="true">→</span></button>
+        </form>
+        <p id="login-help" class="login-help">Student: use your USN · Parent: use a registered parent name with the student's USN, or the parent account email · Admin: enter any username.</p>
+      </div>
+      <footer class="login-footer">© CampusCare · Frontend demonstration</footer>
+    </section>
+  </main>
+  <script src="data.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>
